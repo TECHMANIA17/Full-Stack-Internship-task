@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server-Side Validation Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input.error, textarea.error, select.error {
+            border-color: #e74c3c;
+            background-color: #fadbd8;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background-color: #d5f4e6;
+            color: #27ae60;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .reset-btn {
+            background: #ecf0f1;
+            color: #333;
+            border: 2px solid #bdc3c7;
+        }
+
+        .reset-btn:hover {
+            background: #d5dbdb;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #2c3e50;
+        }
+
+        .field-hint {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 3px;
+        }
+
+        .data-display {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .data-display.show {
+            display: block;
+        }
+
+        .data-display h3 {
+            color: #27ae60;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .data-display p {
+            margin: 8px 0;
+            color: #333;
+            word-break: break-word;
+        }
+
+        .data-display strong {
+            color: #555;
+            min-width: 100px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✓ Server-Side Validation Form</h1>
+        
+        <div class="success-message" id="successMessage"></div>
+        
+        <form id="validationForm">
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input 
+                    type="text" 
+                    id="fullName" 
+                    name="fullName" 
+                    placeholder="Enter your full name"
+                    required
+                >
+                <div class="field-hint">Minimum 3 characters, letters only</div>
+                <div class="error-message" id="fullNameError"></div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="Enter your email"
+                    required
+                >
+                <div class="field-hint">Valid email format required</div>
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    placeholder="1234567890"
+                    pattern="\d{10}"
+                    required
+                >
+                <div class="field-hint">Format: 1234567890</div>
+                <div class="error-message" id="phoneError"></div>
+            </div>
+
+            <!-- Age -->
+            <div class="form-group">
+                <label for="age">Age *</label>
+                <input 
+                    type="number" 
+                    id="age" 
+                    name="age" 
+                    placeholder="Enter your age"
+                    min="18"
+                    max="120"
+                    required
+                >
+                <div class="field-hint">Must be between 18 and 120</div>
+                <div class="error-message" id="ageError"></div>
+            </div>
+
+            <!-- Country -->
+            <div class="form-group">
+                <label for="country">Country *</label>
+                <select id="country" name="country" required>
+                    <option value="">-- Select a country --</option>
+                    <option value="USA">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="error-message" id="countryError"></div>
+            </div>
+
+            <!-- Website -->
+            <div class="form-group">
+                <label for="website">Website (Optional)</label>
+                <input 
+                    type="url" 
+                    id="website" 
+                    name="website" 
+                    placeholder="https://example.com"
+                >
+                <div class="field-hint">Must start with http:// or https://</div>
+                <div class="error-message" id="websiteError"></div>
+            </div>
+
+            <!-- Message -->
+            <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea 
+                    id="message" 
+                    name="message" 
+                    placeholder="Enter your message (minimum 10 characters)"
+                    required
+                ></textarea>
+                <div class="field-hint">Minimum 10 characters, maximum 500</div>
+                <div class="error-message" id="messageError"></div>
+            </div>
+
+            <!-- Agreement Checkbox -->
+            <div class="form-group" style="display: flex; align-items: center;">
+                <input 
+                    type="checkbox" 
+                    id="agreement" 
+                    name="agreement"
+                    style="width: auto; margin-right: 10px;"
+                    required
+                >
+                <label for="agreement" style="margin: 0;">I agree to the terms and conditions *</label>
+                <div class="error-message" id="agreementError" style="margin-left: 30px;"></div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="reset" class="reset-btn">Clear Form</button>
+            </div>
+        </form>
+
+        <!-- Submitted Data Display -->
+        <div class="data-display" id="dataDisplay">
+            <h3>✓ Successfully Submitted Data</h3>
+            <div id="dataContent"></div>
+        </div>
+
+        <div class="info-box">
+            <strong>ℹ️ Information:</strong><br>
+            This form performs both client-side validation for immediate feedback and server-side validation for security. All data is validated and temporarily stored on the server.
+        </div>
+    </div>
+
+    <script>
+        // Validation Rules
+        const validationRules = {
+            fullName: {
+                validate: (value) => {
+                    if (value.length < 3) return 'Name must be at least 3 characters';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'Name can only contain letters and spaces';
+                    return null;
+                }
+            },
+            email: {
+                validate: (value) => {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) return 'Please enter a valid email address';
+                    return null;
+                }
+            },
+            phone: {
+                validate: (value) => {
+                    const phoneRegex = /^\d{10}$/;
+                    if (!phoneRegex.test(value)) return 'Format: 1234567890';
+                    return null;
+                }
+            },
+            age: {
+                validate: (value) => {
+                    const age = parseInt(value);
+                    if (isNaN(age) || age < 18 || age > 120) return 'Age must be between 18 and 120';
+                    return null;
+                }
+            },
+            country: {
+                validate: (value) => {
+                    if (!value) return 'Please select a country';
+                    return null;
+                }
+            },
+            website: {
+                validate: (value) => {
+                    if (!value) return null; // Optional field
+                    const urlRegex = /^https?:\/\/.+/;
+                    if (!urlRegex.test(value)) return 'URL must start with http:// or https://';
+                    return null;
+                }
+            },
+            message: {
+                validate: (value) => {
+                    if (value.length < 10) return 'Message must be at least 10 characters';
+                    if (value.length > 500) return 'Message cannot exceed 500 characters';
+                    return null;
+                }
+            },
+            agreement: {
+                validate: (value) => {
+                    if (!value) return 'You must agree to the terms and conditions';
+                    return null;
+                }
+            }
+        };
+
+        const form = document.getElementById('validationForm');
+        const successMessage = document.getElementById('successMessage');
+        const dataDisplay = document.getElementById('dataDisplay');
+        const dataContent = document.getElementById('dataContent');
+
+        // Client-side validation
+        function validateField(fieldName, value) {
+            const rule = validationRules[fieldName];
+            if (!rule) return null;
+            
+            const errorElement = document.getElementById(`${fieldName}Error`);
+            const inputElement = document.getElementById(fieldName);
+            const error = rule.validate(value);
+
+            if (error) {
+                errorElement.textContent = error;
+                errorElement.classList.add('show');
+                inputElement.classList.add('error');
+                return false;
+            } else {
+                errorElement.classList.remove('show');
+                inputElement.classList.remove('error');
+                return true;
+            }
+        }
+
+        // Real-time validation on input
+        form.querySelectorAll('input, textarea, select').forEach(field => {
+            field.addEventListener('blur', () => {
+                const value = field.type === 'checkbox' ? field.checked : field.value;
+                validateField(field.name, value);
+            });
+
+            field.addEventListener('input', () => {
+                const value = field.type === 'checkbox' ? field.checked : field.value;
+                validateField(field.name, value);
+            });
+        });
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validate all fields
+            const formData = new FormData(form);
+            let isValid = true;
+
+            for (let [fieldName, value] of formData.entries()) {
+                if (fieldName === 'agreement') {
+                    value = form.elements[fieldName].checked;
+                }
+                if (!validateField(fieldName, value)) {
+                    isValid = false;
+                }
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Prepare data for server
+            const data = {
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                age: formData.get('age'),
+                country: formData.get('country'),
+                website: formData.get('website'),
+                message: formData.get('message'),
+                agreement: form.elements['agreement'].checked
+            };
+
+            try {
+                // Send to server for validation
+                const response = await fetch('/api/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Show success message
+                    successMessage.textContent = '✓ Form submitted successfully! Data has been validated and stored.';
+                    successMessage.classList.add('show');
+
+                    // Display submitted data
+                    displaySubmittedData(result.data);
+
+                    // Reset form
+                    form.reset();
+
+                    // Clear error messages
+                    document.querySelectorAll('.error-message').forEach(el => {
+                        el.classList.remove('show');
+                    });
+                    document.querySelectorAll('input, textarea, select').forEach(el => {
+                        el.classList.remove('error');
+                    });
+
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    // Server-side validation failed
+                    successMessage.textContent = '✗ Validation failed: ' + (result.message || 'Unknown error');
+                    successMessage.style.backgroundColor = '#fadbd8';
+                    successMessage.style.color = '#e74c3c';
+                    successMessage.classList.add('show');
+
+                    // Display server-side errors
+                    if (result.errors) {
+                        for (let [fieldName, errorMsg] of Object.entries(result.errors)) {
+                            const errorElement = document.getElementById(`${fieldName}Error`);
+                            const inputElement = document.getElementById(fieldName);
+                            if (errorElement && inputElement) {
+                                errorElement.textContent = errorMsg;
+                                errorElement.classList.add('show');
+                                inputElement.classList.add('error');
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                successMessage.textContent = '✗ An error occurred. Please try again.';
+                successMessage.style.backgroundColor = '#fadbd8';
+                successMessage.style.color = '#e74c3c';
+                successMessage.classList.add('show');
+            }
+        });
+
+        // Display submitted data
+        function displaySubmittedData(data) {
+            let html = '';
+            for (let [key, value] of Object.entries(data)) {
+                const label = key.replace(/([A-Z])/g, ' $1').charAt(0).toUpperCase() + key.slice(1);
+                html += `<p><strong>${label}:</strong> ${value || 'N/A'}</p>`;
+            }
+            dataContent.innerHTML = html;
+            dataDisplay.classList.add('show');
+        }
+
+        // Reset form styling on reset button click
+        document.querySelector('.reset-btn').addEventListener('click', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.error-message').forEach(el => {
+                    el.classList.remove('show');
+                });
+                document.querySelectorAll('input, textarea, select').forEach(el => {
+                    el.classList.remove('error');
+                });
+                successMessage.classList.remove('show');
+                dataDisplay.classList.remove('show');
+            }, 0);
+        });
+    </script>
+</body>
+</html>
