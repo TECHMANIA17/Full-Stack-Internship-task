@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced CSS Styling & Responsive Design</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#home">StyleHub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container-fluid h-100">
+            <div class="row h-100 align-items-center justify-content-center">
+                <div class="col-lg-8 text-center text-white">
+                    <h1 class="display-3 fw-bold hero-title">Welcome to StyleHub</h1>
+                    <p class="lead hero-subtitle">Explore the Power of Advanced CSS & Responsive Design</p>
+                    <button class="btn btn-light btn-lg hero-btn">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Our Features</h2>
+            <div class="row g-4">
+                <!-- Feature Card 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Clean Code</h3>
+                        <p>Write semantic and maintainable CSS for better performance and readability.</p>
+                    </div>
+                </div>
+                <!-- Feature Card 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Fully Responsive</h3>
+                        <p>Seamless experience across all devices with mobile-first design approach.</p>
+                    </div>
+                </div>
+                <!-- Feature Card 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Fast Performance</h3>
+                        <p>Optimized animations and transitions for smooth user interactions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Gallery</h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://via.placeholder.com/300x200/667eea/ffffff?text=Design+1" alt="Design 1">
+                        <div class="gallery-overlay">
+                            <p class="gallery-text">Modern Design</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://via.placeholder.com/300x200/764ba2/ffffff?text=Design+2" alt="Design 2">
+                        <div class="gallery-overlay">
+                            <p class="gallery-text">Creative Layout</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://via.placeholder.com/300x200/f093fb/ffffff?text=Design+3" alt="Design 3">
+                        <div class="gallery-overlay">
+                            <p class="gallery-text">Smooth Animations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="gallery-item">
+                        <img src="https://via.placeholder.com/300x200/4facfe/ffffff?text=Design+4" alt="Design 4">
+                        <div class="gallery-overlay">
+                            <p class="gallery-text">Responsive Grid</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">What Our Users Say</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Amazing designs and smooth animations! This framework made my work so much easier."</p>
+                        <div class="testimonial-author">
+                            <strong>Sarah Johnson</strong>
+                            <p class="text-muted">Web Designer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"The responsive design is perfect for all devices. Highly recommended for modern web projects."</p>
+                        <div class="testimonial-author">
+                            <strong>Mike Chen</strong>
+                            <p class="text-muted">Full Stack Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"The documentation is clear and the CSS framework integrates seamlessly with Bootstrap."</p>
+                        <div class="testimonial-author">
+                            <strong>Emma Wilson</strong>
+                            <p class="text-muted">UX Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Animation Section -->
+    <section id="animations" class="animations-section py-5 bg-dark text-white">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Advanced Animations</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="animation-demo rotating-box">
+                        <p>Rotating Animation</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="animation-demo bouncing-box">
+                        <p>Bouncing Animation</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="animation-demo gradient-box">
+                        <p>Gradient Animation</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="animation-demo pulse-box">
+                        <p>Pulse Animation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <form class="contact-form">
+                        <div class="mb-3">
+                            <input type="text" class="form-control form-input" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control form-input" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control form-input" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100 submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white text-center py-4">
+        <div class="container">
+            <p>&copy; 2026 StyleHub. All rights reserved.</p>
+            <p class="small">Built with Advanced CSS & Bootstrap 5</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome for Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
